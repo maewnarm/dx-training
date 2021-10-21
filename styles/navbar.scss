@@ -1,0 +1,11 @@
+//navbar.scss
+.navbar {
+    background-color: lightcoral;
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    a:hover {
+        background-color: white;
+    }
+}
