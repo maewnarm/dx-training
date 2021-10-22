@@ -1,4 +1,5 @@
 //navbar.scss
+
 .navbar {
     background-color: lightcoral;
     margin: 0 auto;
@@ -8,4 +9,8 @@
     a:hover {
         background-color: white;
     }
+}
+
+.table thead tr{
+    text-align: center;
 }
