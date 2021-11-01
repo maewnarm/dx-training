@@ -1,4 +1,8 @@
 //navbar.scss
+// $fa-font-path: "../webfonts";
+// @import "./scss/fontawesome.scss";
+// @import "./scss/solid.scss";
+// @import "./scss/brands.scss";
 
 .navbar {
     background-color: lightcoral;
@@ -6,11 +10,21 @@
     width: 80%;
     display: flex;
     justify-content: space-around;
-    a:hover {
-        background-color: white;
+    min-height: fit-content;
+    a {
+        height: fit-content;
+        &:hover {
+            background-color: white;
+        }
     }
 }
 
 .table thead tr{
     text-align: center;
+}
+
+.navbar__language {
+    a:not([style*="none"]) {
+        text-decoration: underline;
+    }
 }

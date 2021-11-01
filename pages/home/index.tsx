@@ -1,289 +1,311 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useTheme } from "@nivo/core";
 import { ResponsiveLine } from "@nivo/line";
+import { Chip, TableTooltip, BasicTooltip } from '@nivo/tooltip'
 
 const showToast = () => {
     toast(<h1>test</h1>)
 }
 
-const data = [
-    {
-        "id": "japan",
-        "color": "hsl(66, 70%, 50%)",
-        "data": [
-            {
-                "x": "plane",
-                "y": 191
-            },
-            {
-                "x": "helicopter",
-                "y": 45
-            },
-            {
-                "x": "boat",
-                "y": 85
-            },
-            {
-                "x": "train",
-                "y": 266
-            },
-            {
-                "x": "subway",
-                "y": 203
-            },
-            {
-                "x": "bus",
-                "y": 121
-            },
-            {
-                "x": "car",
-                "y": 8
-            },
-            {
-                "x": "moto",
-                "y": 130
-            },
-            {
-                "x": "bicycle",
-                "y": 170
-            },
-            {
-                "x": "horse",
-                "y": 51
-            },
-            {
-                "x": "skateboard",
-                "y": 228
-            },
-            {
-                "x": "others",
-                "y": 57
-            }
-        ]
-    },
-    {
-        "id": "france",
-        "color": "hsl(225, 70%, 50%)",
-        "data": [
-            {
-                "x": "plane",
-                "y": 74
-            },
-            {
-                "x": "helicopter",
-                "y": 216
-            },
-            {
-                "x": "boat",
-                "y": 77
-            },
-            {
-                "x": "train",
-                "y": 5
-            },
-            {
-                "x": "subway",
-                "y": 204
-            },
-            {
-                "x": "bus",
-                "y": 208
-            },
-            {
-                "x": "car",
-                "y": 157
-            },
-            {
-                "x": "moto",
-                "y": 111
-            },
-            {
-                "x": "bicycle",
-                "y": 214
-            },
-            {
-                "x": "horse",
-                "y": 248
-            },
-            {
-                "x": "skateboard",
-                "y": 1
-            },
-            {
-                "x": "others",
-                "y": 111
-            }
-        ]
-    },
-    {
-        "id": "us",
-        "color": "hsl(236, 70%, 50%)",
-        "data": [
-            {
-                "x": "plane",
-                "y": 77
-            },
-            {
-                "x": "helicopter",
-                "y": 162
-            },
-            {
-                "x": "boat",
-                "y": 150
-            },
-            {
-                "x": "train",
-                "y": 43
-            },
-            {
-                "x": "subway",
-                "y": 212
-            },
-            {
-                "x": "bus",
-                "y": 78
-            },
-            {
-                "x": "car",
-                "y": 273
-            },
-            {
-                "x": "moto",
-                "y": 36
-            },
-            {
-                "x": "bicycle",
-                "y": 2
-            },
-            {
-                "x": "horse",
-                "y": 4
-            },
-            {
-                "x": "skateboard",
-                "y": 264
-            },
-            {
-                "x": "others",
-                "y": 119
-            }
-        ]
-    },
-    {
-        "id": "germany",
-        "color": "hsl(244, 70%, 50%)",
-        "data": [
-            {
-                "x": "plane",
-                "y": 127
-            },
-            {
-                "x": "helicopter",
-                "y": 152
-            },
-            {
-                "x": "boat",
-                "y": 256
-            },
-            {
-                "x": "train",
-                "y": 56
-            },
-            {
-                "x": "subway",
-                "y": 190
-            },
-            {
-                "x": "bus",
-                "y": 217
-            },
-            {
-                "x": "car",
-                "y": 256
-            },
-            {
-                "x": "moto",
-                "y": 297
-            },
-            {
-                "x": "bicycle",
-                "y": 211
-            },
-            {
-                "x": "horse",
-                "y": 210
-            },
-            {
-                "x": "skateboard",
-                "y": 34
-            },
-            {
-                "x": "others",
-                "y": 38
-            }
-        ]
-    },
-    {
-        "id": "norway",
-        "color": "hsl(353, 70%, 50%)",
-        "data": [
-            {
-                "x": "plane",
-                "y": 143
-            },
-            {
-                "x": "helicopter",
-                "y": 193
-            },
-            {
-                "x": "boat",
-                "y": 28
-            },
-            {
-                "x": "train",
-                "y": 28
-            },
-            {
-                "x": "subway",
-                "y": 246
-            },
-            {
-                "x": "bus",
-                "y": 135
-            },
-            {
-                "x": "car",
-                "y": 258
-            },
-            {
-                "x": "moto",
-                "y": 194
-            },
-            {
-                "x": "bicycle",
-                "y": 127
-            },
-            {
-                "x": "horse",
-                "y": 256
-            },
-            {
-                "x": "skateboard",
-                "y": 77
-            },
-            {
-                "x": "others",
-                "y": 9
-            }
-        ]
-    }
-]
+
 
 const LineChart = () => {
+    let data = [
+        {
+            "id": "japan",
+            "color": "hsl(66, 70%, 50%)",
+            "data": [
+                {
+                    "x": "plane",
+                    "y": 191
+                },
+                {
+                    "x": "helicopter",
+                    "y": 45
+                },
+                {
+                    "x": "boat",
+                    "y": 85
+                },
+                {
+                    "x": "train",
+                    "y": 266
+                },
+                {
+                    "x": "subway",
+                    "y": 203
+                },
+                {
+                    "x": "bus",
+                    "y": 121
+                },
+                {
+                    "x": "car",
+                    "y": 8
+                },
+                {
+                    "x": "moto",
+                    "y": 130
+                },
+                {
+                    "x": "bicycle",
+                    "y": 170
+                },
+                {
+                    "x": "horse",
+                    "y": 51
+                },
+                {
+                    "x": "skateboard",
+                    "y": 228
+                },
+                {
+                    "x": "others",
+                    "y": 57
+                }
+            ]
+        },
+        {
+            "id": "france",
+            "color": "hsl(225, 70%, 50%)",
+            "data": [
+                {
+                    "x": "plane",
+                    "y": 74
+                },
+                {
+                    "x": "helicopter",
+                    "y": 216
+                },
+                {
+                    "x": "boat",
+                    "y": 77
+                },
+                {
+                    "x": "train",
+                    "y": 5
+                },
+                {
+                    "x": "subway",
+                    "y": 204
+                },
+                {
+                    "x": "bus",
+                    "y": 208
+                },
+                {
+                    "x": "car",
+                    "y": 157
+                },
+                {
+                    "x": "moto",
+                    "y": 111
+                },
+                {
+                    "x": "bicycle",
+                    "y": 214
+                },
+                {
+                    "x": "horse",
+                    "y": 248
+                },
+                {
+                    "x": "skateboard",
+                    "y": 1
+                },
+                {
+                    "x": "others",
+                    "y": 111
+                }
+            ]
+        },
+        {
+            "id": "us",
+            "color": "hsl(236, 70%, 50%)",
+            "data": [
+                {
+                    "x": "plane",
+                    "y": 77
+                },
+                {
+                    "x": "helicopter",
+                    "y": 162
+                },
+                {
+                    "x": "boat",
+                    "y": 150
+                },
+                {
+                    "x": "train",
+                    "y": 43
+                },
+                {
+                    "x": "subway",
+                    "y": 212
+                },
+                {
+                    "x": "bus",
+                    "y": 78
+                },
+                {
+                    "x": "car",
+                    "y": 273
+                },
+                {
+                    "x": "moto",
+                    "y": 36
+                },
+                {
+                    "x": "bicycle",
+                    "y": 2
+                },
+                {
+                    "x": "horse",
+                    "y": 4
+                },
+                {
+                    "x": "skateboard",
+                    "y": 264
+                },
+                {
+                    "x": "others",
+                    "y": 119
+                }
+            ]
+        },
+        {
+            "id": "germany",
+            "color": "hsl(244, 70%, 50%)",
+            "data": [
+                {
+                    "x": "plane",
+                    "y": 127
+                },
+                {
+                    "x": "helicopter",
+                    "y": 152
+                },
+                {
+                    "x": "boat",
+                    "y": 256
+                },
+                {
+                    "x": "train",
+                    "y": 56
+                },
+                {
+                    "x": "subway",
+                    "y": 190
+                },
+                {
+                    "x": "bus",
+                    "y": 217
+                },
+                {
+                    "x": "car",
+                    "y": 256
+                },
+                {
+                    "x": "moto",
+                    "y": 297
+                },
+                {
+                    "x": "bicycle",
+                    "y": 211
+                },
+                {
+                    "x": "horse",
+                    "y": 210
+                },
+                {
+                    "x": "skateboard",
+                    "y": 34
+                },
+                {
+                    "x": "others",
+                    "y": 38
+                }
+            ]
+        },
+        {
+            "id": "norway",
+            "color": "hsl(353, 70%, 50%)",
+            "data": [
+                {
+                    "x": "plane",
+                    "y": 143
+                },
+                {
+                    "x": "helicopter",
+                    "y": 193
+                },
+                {
+                    "x": "boat",
+                    "y": 28
+                },
+                {
+                    "x": "train",
+                    "y": 28
+                },
+                {
+                    "x": "subway",
+                    "y": 246
+                },
+                {
+                    "x": "bus",
+                    "y": 135
+                },
+                {
+                    "x": "car",
+                    "y": 258
+                },
+                {
+                    "x": "moto",
+                    "y": 194
+                },
+                {
+                    "x": "bicycle",
+                    "y": 127
+                },
+                {
+                    "x": "horse",
+                    "y": 256
+                },
+                {
+                    "x": "skateboard",
+                    "y": 77
+                },
+                {
+                    "x": "others",
+                    "y": 9
+                }
+            ]
+        }
+    ]
+
+    const [chartData, setChartData] = useState<any>(data)
+
+    const addData = () => {
+        data[0]["data"] = [...data[0]["data"], { x: "test", y: Math.floor(Math.random() * 100) }]
+        setChartData([...data])
+        console.log(data)
+        console.log(chartData)
+    }
+
     return (
-        <div style={{ height: "400px",width: "500px"}}>
+        <div style={{ height: "400px", width: "500px" }}>
+            <button className="button is-primary" onClick={addData}>Add random</button>
+            <div className="buttons has-addons">
+                <button className="button is-rounded " onClick={() => console.log("point")}>
+                    Point
+                </button>
+                <button className="button is-rounded is-info is-selected" onClick={() => console.log("slice")}>
+                    Slice
+                </button>
+            </div>
             <ResponsiveLine
-                data={data}
+                data={chartData}
                 margin={{ top: 50, right: 110, bottom: 80, left: 60 }}
                 xScale={{ type: 'point' }}
                 yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
@@ -312,6 +334,38 @@ const LineChart = () => {
                 pointBorderColor={{ from: 'serieColor' }}
                 pointLabelYOffset={-12}
                 useMesh={true}
+                tooltip={({ point }) => {
+                    return (
+                        <BasicTooltip
+                            id={
+                                <span>
+                                    x: <strong>{point.data.xFormatted}</strong>, y:{' '}
+                                    <strong>{point.data.yFormatted}</strong>
+                                </span>
+                            }
+                            enableChip={true}
+                            color={point.serieColor}
+                        />
+                    )
+                }}
+                crosshairType={'cross'}
+                enableSlices={'x'}
+                sliceTooltip={({ slice }) => {
+                    console.log(slice)
+                    const theme = useTheme()
+                    return (
+                        <TableTooltip
+                            title={<p><strong>Tooltips</strong></p>}
+                            rows={slice.points.map(point => [
+                                <Chip key="chip" color={point.serieColor} style={theme.tooltip.chip} />,
+                                point.serieId,
+                                <span key="value" style={theme.tooltip.tableCellValue}>
+                                    {point.data.yFormatted} baht
+                                </span>,
+                            ])}
+                        />
+                    )
+                }}
                 legends={[
                     {
                         anchor: 'bottom-right',
