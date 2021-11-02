@@ -4,12 +4,13 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import store from '../app/store'
-import '../styles/navbar.scss'
+import '../styles/app.scss'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+// import Lang from '../features/lang/Lang'
+import './i18n'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  console.log("load _app.tsx")
   return (
     <Provider store={store}>
       <Head>

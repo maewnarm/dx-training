@@ -1,6 +1,6 @@
 import { createSlice,PayloadAction,createAsyncThunk } from "@reduxjs/toolkit";
 
-import type {AppState,AppThunk} from '../../src/app/store'
+import type {AppState,AppThunk} from '../../app/store'
 import { testFuncAsync } from "./langAPI";
 
 export interface LangState {

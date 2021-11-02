@@ -1,8 +1,7 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { Provider } from 'react-redux'
-import store from '../app/store'
+import { useTranslation } from 'react-i18next'
 
 import { useAppSelector, useAppDispatch } from '../app/hooks'
 import { selectedLang, testAsync, toggleLanguage } from '../features/lang/langSlice'
@@ -10,11 +9,17 @@ import { selectedLang, testAsync, toggleLanguage } from '../features/lang/langSl
 const Home: NextPage = () => {
   const dispatch = useAppDispatch()
   const selectedLanguage = useAppSelector(selectedLang)
+  const { t } = useTranslation()
+  // if (selectedLanguage.language === "EN") {
+  //   i18n.changeLanguage("EN")
+  // } else {
+  //   i18n.changeLanguage("TH")
+  // }
 
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <a href="/home">Home</a>
+        <a href="/home">{t('home.main')}</a>
         <h2>{selectedLanguage.language}</h2>
         <button onClick={() => dispatch(toggleLanguage())}>Toggle Language</button>
         <button onClick={() => dispatch(testAsync())}>Async</button>

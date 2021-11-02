@@ -3,12 +3,22 @@ import { toast } from "react-toastify";
 import { useTheme } from "@nivo/core";
 import { ResponsiveLine } from "@nivo/line";
 import { Chip, TableTooltip, BasicTooltip } from '@nivo/tooltip'
+import classNames from 'classnames'
+
+interface typeTooltipTypeClass {
+    Point: {
+        selected: boolean,
+        class: string
+    },
+    Slice: {
+        selected: boolean,
+        class: string
+    }
+}
 
 const showToast = () => {
     toast(<h1>test</h1>)
 }
-
-
 
 const LineChart = () => {
     let data = [
@@ -285,6 +295,17 @@ const LineChart = () => {
     ]
 
     const [chartData, setChartData] = useState<any>(data)
+    const [enableSliceValue, setEnableSliceValue] = useState<'x'|'y'|false>(false)
+    const [buttonTooltipTypeClass, setButtonTooltipTypeClass] = useState<typeTooltipTypeClass>({
+        Point: {
+            selected: true,
+            class: "button is-rounded is-info is-selected"
+        },
+        Slice: {
+            selected: false,
+            class: "button is-rounded"
+        }
+    })
 
     const addData = () => {
         data[0]["data"] = [...data[0]["data"], { x: "test", y: Math.floor(Math.random() * 100) }]
@@ -293,14 +314,50 @@ const LineChart = () => {
         console.log(chartData)
     }
 
+    const tooltipType = async (e: React.MouseEvent<HTMLElement>) => {
+        console.log(e.currentTarget.className)
+        let name = e.currentTarget.innerHTML
+        let flagPoint = false
+        let flagSlice = false
+        if (name === "Point" && !buttonTooltipTypeClass[name]["selected"]) {
+            flagPoint = true
+        } else if (name === "Slice" && !buttonTooltipTypeClass[name]["selected"]) {
+            flagSlice = true
+        }
+        setEnableSliceValue(flagPoint ? false : 'x')
+        setButtonTooltipTypeClass({
+            Point: {
+                selected: flagPoint,
+                class: classNames(
+                    "button is-rounded",
+                    {
+                        'is-info': flagPoint,
+                        'is-selected': flagPoint,
+                    }
+                )
+            },
+            Slice: {
+                selected: flagSlice,
+                class: classNames(
+                    "button is-rounded",
+                    {
+                        'is-info': flagSlice,
+                        'is-selected': flagSlice,
+                    }
+                )
+            }
+        })
+    }
+
     return (
         <div style={{ height: "400px", width: "500px" }}>
             <button className="button is-primary" onClick={addData}>Add random</button>
+            <button onClick={() => console.log(buttonTooltipTypeClass)}>Show Class</button>
             <div className="buttons has-addons">
-                <button className="button is-rounded " onClick={() => console.log("point")}>
+                <button className={buttonTooltipTypeClass.Point.class} onClick={(e) => tooltipType(e)}>
                     Point
                 </button>
-                <button className="button is-rounded is-info is-selected" onClick={() => console.log("slice")}>
+                <button className={buttonTooltipTypeClass.Slice.class} onClick={(e) => tooltipType(e)}>
                     Slice
                 </button>
             </div>
@@ -349,9 +406,9 @@ const LineChart = () => {
                     )
                 }}
                 crosshairType={'cross'}
-                enableSlices={'x'}
+                enableSlices={enableSliceValue}
                 sliceTooltip={({ slice }) => {
-                    console.log(slice)
+                    // console.log(slice)
                     const theme = useTheme()
                     return (
                         <TableTooltip

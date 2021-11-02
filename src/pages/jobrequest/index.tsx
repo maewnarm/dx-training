@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllJobs, createJob } from "../api/job_request"
 import { toast } from "react-toastify";
 import moment from "moment"
+import Label from "./label"
 
 interface JobRequest {
     Job_id: number
@@ -146,6 +147,7 @@ const JobsTable = ({ jobs }: { jobs: JobRequest[] }) => {
 const JobRequest = () => {
     return (
         <>
+            <Label />
             <JobCreateForm />
         </>
     )
