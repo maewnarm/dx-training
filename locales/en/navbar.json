@@ -1,0 +1,10 @@
+{
+    "menu": {
+        "main": "Main",
+        "home": "Home",
+        "about": "About",
+        "employees": "Employees",
+        "jobrequest": "Job Request",
+        "animate": "Animate"
+    }
+}

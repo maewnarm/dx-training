@@ -1,15 +1,22 @@
-import type { NextPage } from 'next'
+import type { NextPage, GetStaticProps, InferGetStaticPropsType } from 'next'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { useTranslation } from 'react-i18next'
-
 import { useAppSelector, useAppDispatch } from '../app/hooks'
 import { selectedLang, testAsync, toggleLanguage } from '../features/lang/langSlice'
+import useTranslation from "next-translate/useTranslation";
 
-const Home: NextPage = () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      locale
+    }
+  }
+}
+
+const Home: NextPage = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const dispatch = useAppDispatch()
   const selectedLanguage = useAppSelector(selectedLang)
-  const { t } = useTranslation()
+  const { t } = useTranslation('home')
   // if (selectedLanguage.language === "EN") {
   //   i18n.changeLanguage("EN")
   // } else {
@@ -19,6 +26,7 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
+        <h2>{props.locale}</h2>
         <a href="/home">{t('home.main')}</a>
         <h2>{selectedLanguage.language}</h2>
         <button onClick={() => dispatch(toggleLanguage())}>Toggle Language</button>

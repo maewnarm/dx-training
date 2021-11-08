@@ -4,7 +4,7 @@ import type {AppState,AppThunk} from '../../app/store'
 import { testFuncAsync } from "./langAPI";
 
 export interface LangState {
-    language: string
+    language: 'EN'|'TH'
     status: 'idle'|'loading'|'failed'
     data: Array<any>
 }

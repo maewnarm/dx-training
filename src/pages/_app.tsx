@@ -8,7 +8,6 @@ import '../styles/app.scss'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 // import Lang from '../features/lang/Lang'
-import '../i18n'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

@@ -1,35 +1,29 @@
 import { useEffect, useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import {
-    changeLang,
-    selectedLang
-} from './langSlice'
-import { LanguageDiv,LanguageBtn } from '../../styles/styled-component'
-import { useTranslation } from 'react-i18next'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { LanguageDiv, LanguageBtn } from '../../styles/styled-component'
+import useTranslation from "next-translate/useTranslation";
 
 function Lang() {
-    const dispatch = useAppDispatch()
-    const selectedLangauge = useAppSelector(selectedLang)
+    // const dispatch = useAppDispatch()
+    // const selectedLangauge = useAppSelector(selectedLang)
     // const [language, setLanguage] = useState('EN')
-    const { i18n } = useTranslation()
-    useEffect(() => {
-        console.log("effect in lang")
-        console.log(selectedLangauge.language.toLowerCase())
-        i18n.changeLanguage(selectedLangauge.language.toLocaleLowerCase())
-    },[selectedLangauge])
-    console.log(selectedLangauge.language)
+    const { pathname } = useRouter()
+    const { t, lang } = useTranslation('navbar')
 
     return (
         <LanguageDiv>
-            <LanguageBtn
-                onClick={() => dispatch(changeLang('TH'))}
-                isEna = {selectedLangauge.language !== 'TH' ? true : false}
-            >TH</LanguageBtn>
+            <LanguageBtn isEnable={lang !== "th"}>
+                <Link href={pathname} locale="th">
+                    TH
+                </Link>
+            </LanguageBtn>
             |
-            <LanguageBtn
-                onClick={() => dispatch(changeLang('EN'))}
-                isEna = {selectedLangauge.language !== 'EN' ? true : false}
-            >EN</LanguageBtn>
+            <LanguageBtn isEnable={lang !== "en"}>
+                <Link href={pathname} locale="en">
+                    EN
+                </Link>
+            </LanguageBtn>
         </LanguageDiv>
     )
 }
